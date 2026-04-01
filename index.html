@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mitarbeiter Übersicht</title>
+  <title>Mitarbeiter Übersicht als Organigramm der Firma NKSP</title>
 
   <style>
     * {
@@ -95,63 +95,29 @@
       letter-spacing: 0.5px;
     }
 
-    .chef { background: #7c3aed; color: white; }
-    .stv { background: #2563eb; color: white; }
-    .sicherheit { background: #dc2626; color: white; }
-    .it { background: #059669; color: white; }
-    .mitarbeiter { background: #3f3f46; color: white; }
-
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.75);
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      z-index: 999;
-    }
-
-    .modal-content {
-      background: #1e1e1e;
-      border-radius: 20px;
-      max-width: 550px;
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .modal-content img {
-      width: 100%;
-      height: 260px;
-      object-fit: cover;
-    }
-
-    .details {
-      padding: 25px;
-    }
-
-    .details h2 {
-      margin-bottom: 20px;
-      color: #fff;
-    }
-
-    .details p {
-      margin-bottom: 12px;
-      color: #ddd;
-    }
-
-    .close {
-      position: absolute;
-      top: 12px;
-      right: 18px;
-      font-size: 34px;
+    .chef {
+      background: #7c3aed;
       color: white;
-      cursor: pointer;
-      font-weight: bold;
+    }
+
+    .stv {
+      background: #2563eb;
+      color: white;
+    }
+
+    .sicherheit {
+      background: #dc2626;
+      color: white;
+    }
+
+    .it {
+      background: #059669;
+      color: white;
+    }
+
+    .mitarbeiter {
+      background: #3f3f46;
+      color: white;
     }
 
     @media (max-width: 800px) {
@@ -164,80 +130,107 @@
         text-align: center;
         align-items: center;
       }
+
+      .card img {
+        width: 100px;
+        height: 130px;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<h1>Mitarbeiter Übersicht</h1>
+  <script>
+    const passwort = "NKSP2026";
 
-<div class="container">
-  <div class="row">
-    <div class="card">
-      <img src="bilder/chef.jpg" alt="Chef">
-      <div class="card-content">
-        <h2>Chef Name</h2>
-        <p>Geb. 12.05.1980</p>
-        <p>Geschäftsführer</p>
-        <span class="role-badge chef">Chef</span>
+    let eingabe = prompt("Bitte Passwort eingeben:");
+
+    if (eingabe !== passwort) {
+      document.body.innerHTML = "<h1 style='color:white;text-align:center;margin-top:100px;'>Zugriff verweigert</h1>";
+    }
+  </script>
+
+  <h1>Mitarbeiter Übersicht</h1>
+
+  <div class="container">
+
+    <!-- Reihe 1 -->
+    <div class="row">
+
+      <div class="card">
+        <img src="bilder/chef.jpg" alt="Chef">
+        <div class="card-content">
+          <h2>Chef Name</h2>
+          <p>Geb. 12.05.1980</p>
+          <p>Geschäftsführer</p>
+          <span class="role-badge chef">Chef</span>
+        </div>
       </div>
+
+      <div class="card">
+        <img src="bilder/stellvertreter.jpg" alt="Stellvertreter">
+        <div class="card-content">
+          <h2>Stellvertreter Name</h2>
+          <p>Geb. 18.02.1985</p>
+          <p>Stellvertretung</p>
+          <span class="role-badge stv">Stellvertreter</span>
+        </div>
+      </div>
+
     </div>
 
-    <div class="card">
-      <img src="bilder/stellvertreter.jpg" alt="Stellvertreter">
-      <div class="card-content">
-        <h2>Stellvertreter Name</h2>
-        <p>Geb. 18.02.1985</p>
-        <p>Stellvertretung</p>
-        <span class="role-badge stv">Stellvertreter</span>
+    <!-- Reihe 2 -->
+    <div class="row">
+
+      <div class="card">
+        <img src="bilder/sicherheit.jpg" alt="Sicherheitsbeauftragter">
+        <div class="card-content">
+          <h2>Sicherheitsbeauftragter</h2>
+          <p>Geb. 21.08.1987</p>
+          <p>Arbeitsschutz</p>
+          <span class="role-badge sicherheit">Sicherheitsbeauftragter</span>
+        </div>
       </div>
+
+      <div class="card">
+        <img src="bilder/it.jpg" alt="IT Dokumentation">
+        <div class="card-content">
+          <h2>IT Dokumentation</h2>
+          <p>Geb. 14.11.1990</p>
+          <p>IT / Dokumente</p>
+          <span class="role-badge it">IT & Doku</span>
+        </div>
+      </div>
+
     </div>
+
+    <!-- Reihe 3 -->
+    <div class="row">
+
+      <div class="card">
+        <img src="bilder/ronny,w.jpg" alt="Ronny Winkler">
+        <div class="card-content">
+          <h2>Ronny Winkler</h2>
+          <p>Geb. 30.05.1992</p>
+          <p>Mitarbeiter</p>
+          <span class="role-badge mitarbeiter">Mitarbeiter</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="bilder/lisa.jpg" alt="Lisa Becker">
+        <div class="card-content">
+          <h2>Lisa Becker</h2>
+          <p>Geb. 16.06.1994</p>
+          <p>Mitarbeiterin</p>
+          <span class="role-badge mitarbeiter">Mitarbeiterin</span>
+        </div>
+      </div>
+
+    </div>
+
   </div>
-
-  <div class="row">
-    <div class="card">
-      <img src="bilder/sicherheit.jpg" alt="Sicherheitsbeauftragter">
-      <div class="card-content">
-        <h2>Sicherheitsbeauftragter</h2>
-        <p>Geb. 21.08.1987</p>
-        <p>Arbeitsschutz</p>
-        <span class="role-badge sicherheit">Sicherheitsbeauftragter</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="bilder/it.jpg" alt="IT Dokumentation">
-      <div class="card-content">
-        <h2>IT Dokumentation</h2>
-        <p>Geb. 14.11.1990</p>
-        <p>IT / Dokumente</p>
-        <span class="role-badge it">IT & Doku</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="card">
-      <img src="bilder/ronny,w.jpg" alt="Ronny Winkler">
-      <div class="card-content">
-        <h2>Ronny Winkler</h2>
-        <p>Geb. 30.05.1992</p>
-        <p>Mitarbeiter</p>
-        <span class="role-badge mitarbeiter">Mitarbeiter</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="bilder/lisa.jpg" alt="Lisa Becker">
-      <div class="card-content">
-        <h2>Lisa Becker</h2>
-        <p>Geb. 16.06.1994</p>
-        <p>Mitarbeiterin</p>
-        <span class="role-badge mitarbeiter">Mitarbeiterin</span>
-      </div>
-    </div>
-  </div>
-</div>
 
 </body>
 </html>
