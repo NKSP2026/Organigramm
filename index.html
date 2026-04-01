@@ -29,6 +29,7 @@
     .top-bar {
       display: flex;
       justify-content: center;
+      gap: 15px;
       margin-bottom: 30px;
     }
 
@@ -79,7 +80,6 @@
 
     .card:hover {
       transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.5);
     }
 
     .card img {
@@ -111,25 +111,6 @@
       font-size: 14px;
       font-weight: bold;
       color: white;
-    }
-
-    .chef {
-      background: #7c3aed;
-    }
-
-    .stv {
-      background: #2563eb;
-    }
-
-    .sicherheit {
-      background: #dc2626;
-    }
-
-    .it {
-      background: #059669;
-    }
-
-    .mitarbeiter {
       background: #3f3f46;
     }
 
@@ -152,9 +133,11 @@
       border-radius: 20px;
       overflow: hidden;
       width: 100%;
-      max-width: 550px;
+      max-width: 600px;
       position: relative;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
     .modal-content img {
@@ -189,6 +172,30 @@
       z-index: 10;
     }
 
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #444;
+      background: #111;
+      color: white;
+      margin-bottom: 12px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .cancel-btn {
+      background: #666;
+    }
+
+    .cancel-btn:hover {
+      background: #555;
+    }
+
     @media (max-width: 800px) {
       .row {
         grid-template-columns: 1fr;
@@ -201,275 +208,214 @@
     }
   </style>
 </head>
-
 <body>
 
-  <script>
-    const seitenPasswort = "NKSP2026";
+<script>
+  const seitenPasswort = "NKSP2026";
+  const adminPasswort = "Admin2026";
 
-    let eingabe = prompt("Bitte Passwort eingeben:");
+  let eingabe = prompt("Bitte Passwort eingeben:");
 
-    if (eingabe !== seitenPasswort) {
-      document.body.innerHTML = "<h1 style='color:white;text-align:center;margin-top:100px;'>Zugriff verweigert</h1>";
-    }
-  </script>
+  if (eingabe !== seitenPasswort) {
+    document.body.innerHTML = "<h1 style='color:white;text-align:center;margin-top:100px;'>Zugriff verweigert</h1>";
+  }
+</script>
 
-  <h1>Mitarbeiter Übersicht</h1>
+<h1>Mitarbeiter Übersicht</h1>
 
-  <div class="top-bar">
-    <button class="admin-btn" onclick="neuenMitarbeiterHinzufuegen()">
-      + Mitarbeiter hinzufügen
-    </button>
-  </div>
+<div class="top-bar">
+  <button class="admin-btn" onclick="oeffneFormular()">+ Mitarbeiter hinzufügen</button>
+</div>
 
-  <div class="container">
+<div class="container">
+  <div class="row" id="mitarbeiterRow">
 
-    <div class="row">
-
-      <div class="card" onclick="showDetails(
-        'Chef Name',
-        '45',
-        'Chef',
-        '01.01.2020',
-        'Geschäftsführer',
-        'BWL',
-        'Sachkunde §34a',
-        'Ja',
-        'Ja',
-        'B, C',
-        '-',
-        'bilder/chef.jpg'
-      )">
-        <img src="bilder/chef.jpg" alt="Chef">
-        <div class="card-content">
-          <h2>Chef Name</h2>
-          <p>Geb. 12.05.1980</p>
-          <p>Geschäftsführer</p>
-          <span class="role-badge chef">Chef</span>
-        </div>
+    <div class="card" onclick="showDetails(
+      'Ronny Winkler',
+      '33',
+      'Mitarbeiter',
+      '01.02.2025',
+      'Feuerwehrmann',
+      'Tischler',
+      'Sachkunde §34a',
+      'Ja',
+      'Ja',
+      'B, C',
+      'Nicole Küttner',
+      'bilder/ronny,w.jpg'
+    )">
+      <img src="bilder/ronny,w.jpg" alt="Ronny Winkler">
+      <div class="card-content">
+        <h2>Ronny Winkler</h2>
+        <p>Geb. 30.05.1992</p>
+        <p>Mitarbeiter</p>
+        <span class="role-badge">Mitarbeiter</span>
       </div>
-
-      <div class="card" onclick="showDetails(
-        'Stellvertreter Name',
-        '40',
-        'Stellvertreter',
-        '01.06.2021',
-        'Objektleiter',
-        'Sachkunde',
-        'Sachkunde §34a',
-        'Ja',
-        'Ja',
-        'B',
-        'Chef Name',
-        'bilder/stellvertreter.jpg'
-      )">
-        <img src="bilder/stellvertreter.jpg" alt="Stellvertreter">
-        <div class="card-content">
-          <h2>Stellvertreter Name</h2>
-          <p>Geb. 18.02.1985</p>
-          <p>Stellvertretung</p>
-          <span class="role-badge stv">Stellvertreter</span>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="row">
-
-      <div class="card" onclick="showDetails(
-        'Sicherheitsbeauftragter',
-        '38',
-        'Sicherheitsbeauftragter',
-        '01.04.2022',
-        'Sicherheitsfachkraft',
-        'Arbeitsschutz',
-        'Sachkunde §34a',
-        'Ja',
-        'Ja',
-        'B',
-        'Chef Name',
-        'bilder/sicherheit.jpg'
-      )">
-        <img src="bilder/sicherheit.jpg" alt="Sicherheitsbeauftragter">
-        <div class="card-content">
-          <h2>Sicherheitsbeauftragter</h2>
-          <p>Geb. 21.08.1987</p>
-          <p>Arbeitsschutz</p>
-          <span class="role-badge sicherheit">Sicherheitsbeauftragter</span>
-        </div>
-      </div>
-
-      <div class="card" onclick="showDetails(
-        'IT Dokumentation',
-        '34',
-        'IT / Dokumentenersteller',
-        '01.07.2023',
-        'IT-Verwaltung',
-        'Fachinformatiker',
-        'Unterweisung §34a',
-        'Ja',
-        'Nein',
-        'B',
-        'Chef Name',
-        'bilder/it.jpg'
-      )">
-        <img src="bilder/it.jpg" alt="IT Dokumentation">
-        <div class="card-content">
-          <h2>IT Dokumentation</h2>
-          <p>Geb. 14.11.1990</p>
-          <p>IT / Dokumente</p>
-          <span class="role-badge it">IT & Doku</span>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="row" id="mitarbeiterRow">
-
-      <div class="card" onclick="showDetails(
-        'Ronny Winkler',
-        '33',
-        'Mitarbeiter',
-        '01.02.2025',
-        'Feuerwehrmann',
-        'Tischler',
-        'Sachkunde §34a',
-        'Ja',
-        'Ja',
-        'B, C',
-        'Nicole Küttner',
-        'bilder/ronny,w.jpg'
-      )">
-        <img src="bilder/ronny,w.jpg" alt="Ronny Winkler">
-        <div class="card-content">
-          <h2>Ronny Winkler</h2>
-          <p>Geb. 30.05.1992</p>
-          <p>Mitarbeiter</p>
-          <span class="role-badge mitarbeiter">Mitarbeiter</span>
-        </div>
-      </div>
-
-      <div class="card" onclick="showDetails(
-        'Lisa Becker',
-        '31',
-        'Mitarbeiterin',
-        '01.03.2026',
-        'Kauffrau',
-        'Büromanagement',
-        'Unterweisung §34a',
-        'Nein',
-        'Ja',
-        'B',
-        'Max Mustermann',
-        'bilder/lisa.jpg'
-      )">
-        <img src="bilder/lisa.jpg" alt="Lisa Becker">
-        <div class="card-content">
-          <h2>Lisa Becker</h2>
-          <p>Geb. 16.06.1994</p>
-          <p>Mitarbeiterin</p>
-          <span class="role-badge mitarbeiter">Mitarbeiterin</span>
-        </div>
-      </div>
-
     </div>
 
   </div>
+</div>
 
-  <div class="modal" id="detailModal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
+<div class="modal" id="detailModal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
 
-      <img id="detailImage" src="" alt="Bild">
+    <img id="detailImage" src="" alt="Bild">
 
-      <div class="details">
-        <h2 id="detailName"></h2>
+    <div class="details">
+      <h2 id="detailName"></h2>
+      <p><strong>Funktion:</strong> <span id="detailRole"></span></p>
+      <p><strong>Angestellt seit:</strong> <span id="detailSince"></span></p>
+      <p><strong>Alter:</strong> <span id="detailAge"></span></p>
+      <p><strong>Beruf:</strong> <span id="detailJob"></span></p>
+      <p><strong>Ausbildung:</strong> <span id="detailTraining"></span></p>
+      <p><strong>Sicherheitsdienst:</strong> <span id="detailSecurity"></span></p>
+      <p><strong>Ersthelfer/in:</strong> <span id="detailFirstAid"></span></p>
+      <p><strong>Brandschutzhelfer/in:</strong> <span id="detailFire"></span></p>
+      <p><strong>Führerschein:</strong> <span id="detailLicense"></span></p>
+      <p><strong>Vorgesetzter:</strong> <span id="detailBoss"></span></p>
+    </div>
+  </div>
+</div>
 
-        <p><strong>Funktion:</strong> <span id="detailRole"></span></p>
-        <p><strong>Angestellt seit:</strong> <span id="detailSince"></span></p>
-        <p><strong>Alter:</strong> <span id="detailAge"></span></p>
-        <p><strong>Beruf:</strong> <span id="detailJob"></span></p>
-        <p><strong>Ausbildung:</strong> <span id="detailTraining"></span></p>
-        <p><strong>Sicherheitsdienst:</strong> <span id="detailSecurity"></span></p>
-        <p><strong>Ersthelfer/in:</strong> <span id="detailFirstAid"></span></p>
-        <p><strong>Brandschutzhelfer/in:</strong> <span id="detailFire"></span></p>
-        <p><strong>Führerschein:</strong> <span id="detailLicense"></span></p>
-        <p><strong>Vorgesetzter:</strong> <span id="detailBoss"></span></p>
+<div class="modal" id="formularModal">
+  <div class="modal-content">
+    <span class="close" onclick="schliesseFormular()">&times;</span>
+
+    <div class="details">
+      <h2>Neuen Mitarbeiter anlegen</h2>
+
+      <input type="text" id="formName" placeholder="Name">
+      <input type="text" id="formGeburt" placeholder="Geburtsdatum">
+      <input type="text" id="formAlter" placeholder="Alter">
+      <input type="text" id="formFunktion" placeholder="Funktion">
+      <input type="text" id="formSeit" placeholder="Angestellt seit">
+      <input type="text" id="formBeruf" placeholder="Beruf">
+      <input type="text" id="formAusbildung" placeholder="Ausbildung">
+      <input type="text" id="formSicherheit" placeholder="Sicherheitsdienst">
+      <input type="text" id="formErsthelfer" placeholder="Ersthelfer/in">
+      <input type="text" id="formBrandschutz" placeholder="Brandschutzhelfer/in">
+      <input type="text" id="formFuehrerschein" placeholder="Führerschein">
+      <input type="text" id="formChef" placeholder="Vorgesetzter">
+      <input type="file" id="formBild" accept="image/*">
+
+      <div class="button-group">
+        <button class="admin-btn" onclick="speichereMitarbeiter()">Speichern</button>
+        <button class="admin-btn cancel-btn" onclick="schliesseFormular()">Abbrechen</button>
       </div>
     </div>
   </div>
+</div>
 
-  <script>
-    function showDetails(name, age, role, since, job, training, security, firstAid, fire, license, boss, image) {
-      document.getElementById('detailName').innerText = name;
-      document.getElementById('detailAge').innerText = age;
-      document.getElementById('detailRole').innerText = role;
-      document.getElementById('detailSince').innerText = since;
-      document.getElementById('detailJob').innerText = job;
-      document.getElementById('detailTraining').innerText = training;
-      document.getElementById('detailSecurity').innerText = security;
-      document.getElementById('detailFirstAid').innerText = firstAid;
-      document.getElementById('detailFire').innerText = fire;
-      document.getElementById('detailLicense').innerText = license;
-      document.getElementById('detailBoss').innerText = boss;
-      document.getElementById('detailImage').src = image;
+<script>
+  function showDetails(name, age, role, since, job, training, security, firstAid, fire, license, boss, image) {
+    document.getElementById('detailName').innerText = name;
+    document.getElementById('detailAge').innerText = age;
+    document.getElementById('detailRole').innerText = role;
+    document.getElementById('detailSince').innerText = since;
+    document.getElementById('detailJob').innerText = job;
+    document.getElementById('detailTraining').innerText = training;
+    document.getElementById('detailSecurity').innerText = security;
+    document.getElementById('detailFirstAid').innerText = firstAid;
+    document.getElementById('detailFire').innerText = fire;
+    document.getElementById('detailLicense').innerText = license;
+    document.getElementById('detailBoss').innerText = boss;
+    document.getElementById('detailImage').src = image;
+    document.getElementById('detailModal').style.display = 'flex';
+  }
 
-      document.getElementById('detailModal').style.display = 'flex';
+  function closeModal() {
+    document.getElementById('detailModal').style.display = 'none';
+  }
+
+  function oeffneFormular() {
+    const passwort = prompt('Admin Passwort eingeben');
+
+    if (passwort !== adminPasswort) {
+      alert('Falsches Passwort');
+      return;
     }
 
-    function closeModal() {
-      document.getElementById('detailModal').style.display = 'none';
+    document.getElementById('formularModal').style.display = 'flex';
+  }
+
+  function schliesseFormular() {
+    document.getElementById('formularModal').style.display = 'none';
+  }
+
+  function speichereMitarbeiter() {
+    const name = document.getElementById('formName').value;
+    const geburt = document.getElementById('formGeburt').value;
+    const alter = document.getElementById('formAlter').value;
+    const funktion = document.getElementById('formFunktion').value;
+    const seit = document.getElementById('formSeit').value;
+    const beruf = document.getElementById('formBeruf').value;
+    const ausbildung = document.getElementById('formAusbildung').value;
+    const sicherheit = document.getElementById('formSicherheit').value;
+    const ersthelfer = document.getElementById('formErsthelfer').value;
+    const brandschutz = document.getElementById('formBrandschutz').value;
+    const fuehrerschein = document.getElementById('formFuehrerschein').value;
+    const chef = document.getElementById('formChef').value;
+
+    const bildDatei = document.getElementById('formBild').files[0];
+
+    if (!name || !bildDatei) {
+      alert('Bitte mindestens Name und Bild eingeben');
+      return;
     }
 
-    window.onclick = function(event) {
-      const modal = document.getElementById('detailModal');
+    const reader = new FileReader();
 
-      if (event.target === modal) {
-        modal.style.display = 'none';
-      }
-    }
-
-    function neuenMitarbeiterHinzufuegen() {
-      const adminPasswort = 'Admin2026';
-      const passwort = prompt('Admin Passwort eingeben');
-
-      if (passwort !== adminPasswort) {
-        alert('Falsches Passwort');
-        return;
-      }
-
-      const name = prompt('Name des Mitarbeiters');
-      const geburtsdatum = prompt('Geburtsdatum');
-      const alter = prompt('Alter');
-      const funktion = prompt('Funktion');
-      const angestelltSeit = prompt('Angestellt seit');
-      const beruf = prompt('Beruf');
-      const ausbildung = prompt('Ausbildung');
-      const sicherheitsdienst = prompt('Sicherheitsdienst');
-      const ersthelfer = prompt('Ersthelfer/in');
-      const brandschutz = prompt('Brandschutzhelfer/in');
-      const fuehrerschein = prompt('Führerschein');
-      const chef = prompt('Vorgesetzter');
-      const bild = prompt('Bildpfad eingeben, z.B. bilder/max.jpg');
+    reader.onload = function(e) {
+      const bild = e.target.result;
 
       const neueKarte = document.createElement('div');
       neueKarte.className = 'card';
-
-      neueKarte.setAttribute('onclick', `showDetails('${name}','${alter}','${funktion}','${angestelltSeit}','${beruf}','${ausbildung}','${sicherheitsdienst}','${ersthelfer}','${brandschutz}','${fuehrerschein}','${chef}','${bild}')`);
 
       neueKarte.innerHTML = `
         <img src="${bild}" alt="${name}">
         <div class="card-content">
           <h2>${name}</h2>
-          <p>Geb. ${geburtsdatum}</p>
+          <p>Geb. ${geburt}</p>
           <p>${funktion}</p>
-          <span class="role-badge mitarbeiter">${funktion}</span>
+          <span class="role-badge">${funktion}</span>
         </div>
       `;
 
+      neueKarte.setAttribute('onclick', `showDetails('${name}','${alter}','${funktion}','${seit}','${beruf}','${ausbildung}','${sicherheit}','${ersthelfer}','${brandschutz}','${fuehrerschein}','${chef}','${bild}')`);
+
+      neueKarte.oncontextmenu = function(event) {
+        event.preventDefault();
+
+        const passwort = prompt('Admin Passwort zum Löschen eingeben');
+
+        if (passwort === adminPasswort) {
+          neueKarte.remove();
+        } else {
+          alert('Falsches Passwort');
+        }
+      };
+
       document.getElementById('mitarbeiterRow').appendChild(neueKarte);
+      schliesseFormular();
+    };
+
+    reader.readAsDataURL(bildDatei);
+  }
+
+  window.onclick = function(event) {
+    const detailModal = document.getElementById('detailModal');
+    const formularModal = document.getElementById('formularModal');
+
+    if (event.target === detailModal) {
+      detailModal.style.display = 'none';
     }
-  </script>
+
+    if (event.target === formularModal) {
+      formularModal.style.display = 'none';
+    }
+  }
+</script>
 
 </body>
 </html>
