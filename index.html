@@ -21,17 +21,39 @@
 
     h1 {
       text-align: center;
-      margin-bottom: 40px;
-      color: #fff;
-      font-size: 42px;
+      margin-bottom: 30px;
+      color: white;
+      font-size: 48px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .admin-btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .admin-btn:hover {
+      background: #1d4ed8;
     }
 
     .container {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
       max-width: 1200px;
       margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
     }
 
     .row {
@@ -69,19 +91,15 @@
       flex-shrink: 0;
     }
 
-    .card-content {
-      flex: 1;
-    }
-
     .card-content h2 {
       font-size: 28px;
       margin-bottom: 10px;
-      color: #fff;
+      color: white;
     }
 
     .card-content p {
-      margin-bottom: 8px;
       color: #bbb;
+      margin-bottom: 8px;
       font-size: 18px;
     }
 
@@ -92,41 +110,56 @@
       border-radius: 999px;
       font-size: 14px;
       font-weight: bold;
-      letter-spacing: 0.5px;
+      color: white;
     }
 
-    .chef { background: #7c3aed; color: white; }
-    .stv { background: #2563eb; color: white; }
-    .sicherheit { background: #dc2626; color: white; }
-    .it { background: #059669; color: white; }
-    .mitarbeiter { background: #3f3f46; color: white; }
+    .chef {
+      background: #7c3aed;
+    }
+
+    .stv {
+      background: #2563eb;
+    }
+
+    .sicherheit {
+      background: #dc2626;
+    }
+
+    .it {
+      background: #059669;
+    }
+
+    .mitarbeiter {
+      background: #3f3f46;
+    }
 
     .modal {
       display: none;
       position: fixed;
-      top: 0;
+      z-index: 999;
       left: 0;
+      top: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.75);
+      background: rgba(0,0,0,0.8);
       justify-content: center;
       align-items: center;
       padding: 20px;
-      z-index: 999;
     }
 
     .modal-content {
-      background: #1e1e1e;
+      background: #1c1c1f;
       border-radius: 20px;
-      max-width: 550px;
-      width: 100%;
       overflow: hidden;
+      width: 100%;
+      max-width: 550px;
       position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
     .modal-content img {
       width: 100%;
-      height: 260px;
+      height: 280px;
       object-fit: cover;
     }
 
@@ -136,22 +169,24 @@
 
     .details h2 {
       margin-bottom: 20px;
-      color: #fff;
+      font-size: 30px;
+      color: white;
     }
 
     .details p {
-      margin-bottom: 12px;
-      color: #ddd;
+      margin-bottom: 10px;
+      color: #ccc;
+      font-size: 17px;
     }
 
     .close {
       position: absolute;
-      top: 12px;
+      top: 10px;
       right: 18px;
-      font-size: 34px;
       color: white;
+      font-size: 34px;
       cursor: pointer;
-      font-weight: bold;
+      z-index: 10;
     }
 
     @media (max-width: 800px) {
@@ -162,82 +197,279 @@
       .card {
         flex-direction: column;
         text-align: center;
-        align-items: center;
       }
     }
   </style>
 </head>
+
 <body>
 
-<h1>Mitarbeiter Übersicht</h1>
+  <script>
+    const seitenPasswort = "NKSP2026";
 
-<div class="container">
-  <div class="row">
-    <div class="card">
-      <img src="bilder/chef.jpg" alt="Chef">
-      <div class="card-content">
-        <h2>Chef Name</h2>
-        <p>Geb. 12.05.1980</p>
-        <p>Geschäftsführer</p>
-        <span class="role-badge chef">Chef</span>
+    let eingabe = prompt("Bitte Passwort eingeben:");
+
+    if (eingabe !== seitenPasswort) {
+      document.body.innerHTML = "<h1 style='color:white;text-align:center;margin-top:100px;'>Zugriff verweigert</h1>";
+    }
+  </script>
+
+  <h1>Mitarbeiter Übersicht</h1>
+
+  <div class="top-bar">
+    <button class="admin-btn" onclick="neuenMitarbeiterHinzufuegen()">
+      + Mitarbeiter hinzufügen
+    </button>
+  </div>
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="card" onclick="showDetails(
+        'Chef Name',
+        '45',
+        'Chef',
+        '01.01.2020',
+        'Geschäftsführer',
+        'BWL',
+        'Sachkunde §34a',
+        'Ja',
+        'Ja',
+        'B, C',
+        '-',
+        'bilder/chef.jpg'
+      )">
+        <img src="bilder/chef.jpg" alt="Chef">
+        <div class="card-content">
+          <h2>Chef Name</h2>
+          <p>Geb. 12.05.1980</p>
+          <p>Geschäftsführer</p>
+          <span class="role-badge chef">Chef</span>
+        </div>
       </div>
+
+      <div class="card" onclick="showDetails(
+        'Stellvertreter Name',
+        '40',
+        'Stellvertreter',
+        '01.06.2021',
+        'Objektleiter',
+        'Sachkunde',
+        'Sachkunde §34a',
+        'Ja',
+        'Ja',
+        'B',
+        'Chef Name',
+        'bilder/stellvertreter.jpg'
+      )">
+        <img src="bilder/stellvertreter.jpg" alt="Stellvertreter">
+        <div class="card-content">
+          <h2>Stellvertreter Name</h2>
+          <p>Geb. 18.02.1985</p>
+          <p>Stellvertretung</p>
+          <span class="role-badge stv">Stellvertreter</span>
+        </div>
+      </div>
+
     </div>
 
-    <div class="card">
-      <img src="bilder/stellvertreter.jpg" alt="Stellvertreter">
-      <div class="card-content">
-        <h2>Stellvertreter Name</h2>
-        <p>Geb. 18.02.1985</p>
-        <p>Stellvertretung</p>
-        <span class="role-badge stv">Stellvertreter</span>
+    <div class="row">
+
+      <div class="card" onclick="showDetails(
+        'Sicherheitsbeauftragter',
+        '38',
+        'Sicherheitsbeauftragter',
+        '01.04.2022',
+        'Sicherheitsfachkraft',
+        'Arbeitsschutz',
+        'Sachkunde §34a',
+        'Ja',
+        'Ja',
+        'B',
+        'Chef Name',
+        'bilder/sicherheit.jpg'
+      )">
+        <img src="bilder/sicherheit.jpg" alt="Sicherheitsbeauftragter">
+        <div class="card-content">
+          <h2>Sicherheitsbeauftragter</h2>
+          <p>Geb. 21.08.1987</p>
+          <p>Arbeitsschutz</p>
+          <span class="role-badge sicherheit">Sicherheitsbeauftragter</span>
+        </div>
+      </div>
+
+      <div class="card" onclick="showDetails(
+        'IT Dokumentation',
+        '34',
+        'IT / Dokumentenersteller',
+        '01.07.2023',
+        'IT-Verwaltung',
+        'Fachinformatiker',
+        'Unterweisung §34a',
+        'Ja',
+        'Nein',
+        'B',
+        'Chef Name',
+        'bilder/it.jpg'
+      )">
+        <img src="bilder/it.jpg" alt="IT Dokumentation">
+        <div class="card-content">
+          <h2>IT Dokumentation</h2>
+          <p>Geb. 14.11.1990</p>
+          <p>IT / Dokumente</p>
+          <span class="role-badge it">IT & Doku</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row" id="mitarbeiterRow">
+
+      <div class="card" onclick="showDetails(
+        'Ronny Winkler',
+        '33',
+        'Mitarbeiter',
+        '01.02.2025',
+        'Feuerwehrmann',
+        'Tischler',
+        'Sachkunde §34a',
+        'Ja',
+        'Ja',
+        'B, C',
+        'Nicole Küttner',
+        'bilder/ronny,w.jpg'
+      )">
+        <img src="bilder/ronny,w.jpg" alt="Ronny Winkler">
+        <div class="card-content">
+          <h2>Ronny Winkler</h2>
+          <p>Geb. 30.05.1992</p>
+          <p>Mitarbeiter</p>
+          <span class="role-badge mitarbeiter">Mitarbeiter</span>
+        </div>
+      </div>
+
+      <div class="card" onclick="showDetails(
+        'Lisa Becker',
+        '31',
+        'Mitarbeiterin',
+        '01.03.2026',
+        'Kauffrau',
+        'Büromanagement',
+        'Unterweisung §34a',
+        'Nein',
+        'Ja',
+        'B',
+        'Max Mustermann',
+        'bilder/lisa.jpg'
+      )">
+        <img src="bilder/lisa.jpg" alt="Lisa Becker">
+        <div class="card-content">
+          <h2>Lisa Becker</h2>
+          <p>Geb. 16.06.1994</p>
+          <p>Mitarbeiterin</p>
+          <span class="role-badge mitarbeiter">Mitarbeiterin</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="modal" id="detailModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+
+      <img id="detailImage" src="" alt="Bild">
+
+      <div class="details">
+        <h2 id="detailName"></h2>
+
+        <p><strong>Funktion:</strong> <span id="detailRole"></span></p>
+        <p><strong>Angestellt seit:</strong> <span id="detailSince"></span></p>
+        <p><strong>Alter:</strong> <span id="detailAge"></span></p>
+        <p><strong>Beruf:</strong> <span id="detailJob"></span></p>
+        <p><strong>Ausbildung:</strong> <span id="detailTraining"></span></p>
+        <p><strong>Sicherheitsdienst:</strong> <span id="detailSecurity"></span></p>
+        <p><strong>Ersthelfer/in:</strong> <span id="detailFirstAid"></span></p>
+        <p><strong>Brandschutzhelfer/in:</strong> <span id="detailFire"></span></p>
+        <p><strong>Führerschein:</strong> <span id="detailLicense"></span></p>
+        <p><strong>Vorgesetzter:</strong> <span id="detailBoss"></span></p>
       </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="card">
-      <img src="bilder/sicherheit.jpg" alt="Sicherheitsbeauftragter">
-      <div class="card-content">
-        <h2>Sicherheitsbeauftragter</h2>
-        <p>Geb. 21.08.1987</p>
-        <p>Arbeitsschutz</p>
-        <span class="role-badge sicherheit">Sicherheitsbeauftragter</span>
-      </div>
-    </div>
+  <script>
+    function showDetails(name, age, role, since, job, training, security, firstAid, fire, license, boss, image) {
+      document.getElementById('detailName').innerText = name;
+      document.getElementById('detailAge').innerText = age;
+      document.getElementById('detailRole').innerText = role;
+      document.getElementById('detailSince').innerText = since;
+      document.getElementById('detailJob').innerText = job;
+      document.getElementById('detailTraining').innerText = training;
+      document.getElementById('detailSecurity').innerText = security;
+      document.getElementById('detailFirstAid').innerText = firstAid;
+      document.getElementById('detailFire').innerText = fire;
+      document.getElementById('detailLicense').innerText = license;
+      document.getElementById('detailBoss').innerText = boss;
+      document.getElementById('detailImage').src = image;
 
-    <div class="card">
-      <img src="bilder/it.jpg" alt="IT Dokumentation">
-      <div class="card-content">
-        <h2>IT Dokumentation</h2>
-        <p>Geb. 14.11.1990</p>
-        <p>IT / Dokumente</p>
-        <span class="role-badge it">IT & Doku</span>
-      </div>
-    </div>
-  </div>
+      document.getElementById('detailModal').style.display = 'flex';
+    }
 
-  <div class="row">
-    <div class="card">
-      <img src="bilder/ronny,w.jpg" alt="Ronny Winkler">
-      <div class="card-content">
-        <h2>Ronny Winkler</h2>
-        <p>Geb. 30.05.1992</p>
-        <p>Mitarbeiter</p>
-        <span class="role-badge mitarbeiter">Mitarbeiter</span>
-      </div>
-    </div>
+    function closeModal() {
+      document.getElementById('detailModal').style.display = 'none';
+    }
 
-    <div class="card">
-      <img src="bilder/lisa.jpg" alt="Lisa Becker">
-      <div class="card-content">
-        <h2>Lisa Becker</h2>
-        <p>Geb. 16.06.1994</p>
-        <p>Mitarbeiterin</p>
-        <span class="role-badge mitarbeiter">Mitarbeiterin</span>
-      </div>
-    </div>
-  </div>
-</div>
+    window.onclick = function(event) {
+      const modal = document.getElementById('detailModal');
+
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    function neuenMitarbeiterHinzufuegen() {
+      const adminPasswort = 'Admin2026';
+      const passwort = prompt('Admin Passwort eingeben');
+
+      if (passwort !== adminPasswort) {
+        alert('Falsches Passwort');
+        return;
+      }
+
+      const name = prompt('Name des Mitarbeiters');
+      const geburtsdatum = prompt('Geburtsdatum');
+      const alter = prompt('Alter');
+      const funktion = prompt('Funktion');
+      const angestelltSeit = prompt('Angestellt seit');
+      const beruf = prompt('Beruf');
+      const ausbildung = prompt('Ausbildung');
+      const sicherheitsdienst = prompt('Sicherheitsdienst');
+      const ersthelfer = prompt('Ersthelfer/in');
+      const brandschutz = prompt('Brandschutzhelfer/in');
+      const fuehrerschein = prompt('Führerschein');
+      const chef = prompt('Vorgesetzter');
+      const bild = prompt('Bildpfad eingeben, z.B. bilder/max.jpg');
+
+      const neueKarte = document.createElement('div');
+      neueKarte.className = 'card';
+
+      neueKarte.setAttribute('onclick', `showDetails('${name}','${alter}','${funktion}','${angestelltSeit}','${beruf}','${ausbildung}','${sicherheitsdienst}','${ersthelfer}','${brandschutz}','${fuehrerschein}','${chef}','${bild}')`);
+
+      neueKarte.innerHTML = `
+        <img src="${bild}" alt="${name}">
+        <div class="card-content">
+          <h2>${name}</h2>
+          <p>Geb. ${geburtsdatum}</p>
+          <p>${funktion}</p>
+          <span class="role-badge mitarbeiter">${funktion}</span>
+        </div>
+      `;
+
+      document.getElementById('mitarbeiterRow').appendChild(neueKarte);
+    }
+  </script>
 
 </body>
 </html>
