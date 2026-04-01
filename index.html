@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -22,7 +23,6 @@
     h1 {
       text-align: center;
       margin-bottom: 30px;
-      color: white;
       font-size: 48px;
     }
 
@@ -42,11 +42,14 @@
       cursor: pointer;
       font-size: 16px;
       font-weight: bold;
-      transition: 0.2s;
     }
 
-    .admin-btn:hover {
-      background: #1d4ed8;
+    .delete-btn {
+      background: #dc2626;
+    }
+
+    .delete-btn:hover {
+      background: #b91c1c;
     }
 
     .container {
@@ -58,6 +61,17 @@
     }
 
     .row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+    }
+
+    .row-center {
+      display: flex;
+      justify-content: center;
+    }
+
+    .employee-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 25px;
@@ -76,10 +90,7 @@
       padding: 18px;
       min-height: 180px;
       border: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .card:hover {
-      transform: translateY(-5px) scale(1.02);
+      position: relative;
     }
 
     .card img {
@@ -88,13 +99,11 @@
       object-fit: cover;
       border-radius: 16px;
       border: 2px solid #444;
-      flex-shrink: 0;
     }
 
     .card-content h2 {
       font-size: 28px;
       margin-bottom: 10px;
-      color: white;
     }
 
     .card-content p {
@@ -111,13 +120,29 @@
       font-size: 14px;
       font-weight: bold;
       color: white;
-      background: #3f3f46;
+    }
+
+    .chef { background: #7c3aed; }
+    .stv { background: #2563eb; }
+    .it { background: #059669; }
+    .mitarbeiter { background: #3f3f46; }
+
+    .remove-card-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #dc2626;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 5px 8px;
+      cursor: pointer;
+      font-size: 12px;
     }
 
     .modal {
       display: none;
       position: fixed;
-      z-index: 999;
       left: 0;
       top: 0;
       width: 100%;
@@ -125,19 +150,18 @@
       background: rgba(0,0,0,0.8);
       justify-content: center;
       align-items: center;
+      z-index: 999;
       padding: 20px;
     }
 
     .modal-content {
       background: #1c1c1f;
       border-radius: 20px;
-      overflow: hidden;
       width: 100%;
       max-width: 600px;
-      position: relative;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       max-height: 90vh;
       overflow-y: auto;
+      position: relative;
     }
 
     .modal-content img {
@@ -153,13 +177,11 @@
     .details h2 {
       margin-bottom: 20px;
       font-size: 30px;
-      color: white;
     }
 
     .details p {
       margin-bottom: 10px;
       color: #ccc;
-      font-size: 17px;
     }
 
     .close {
@@ -169,41 +191,21 @@
       color: white;
       font-size: 34px;
       cursor: pointer;
-      z-index: 10;
     }
 
     input {
       width: 100%;
       padding: 12px;
+      margin-bottom: 12px;
       border-radius: 10px;
       border: 1px solid #444;
       background: #111;
       color: white;
-      margin-bottom: 12px;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .cancel-btn {
-      background: #666;
-    }
-
-    .cancel-btn:hover {
-      background: #555;
     }
 
     @media (max-width: 800px) {
-      .row {
+      .row, .employee-grid {
         grid-template-columns: 1fr;
-      }
-
-      .card {
-        flex-direction: column;
-        text-align: center;
       }
     }
   </style>
@@ -214,7 +216,7 @@
   const seitenPasswort = "NKSP2026";
   const adminPasswort = "Admin2026";
 
-  let eingabe = prompt("Bitte Passwort eingeben:");
+  const eingabe = prompt("Bitte Passwort eingeben:");
 
   if (eingabe !== seitenPasswort) {
     document.body.innerHTML = "<h1 style='color:white;text-align:center;margin-top:100px;'>Zugriff verweigert</h1>";
@@ -228,40 +230,50 @@
 </div>
 
 <div class="container">
-  <div class="row" id="mitarbeiterRow">
 
-    <div class="card" onclick="showDetails(
-      'Ronny Winkler',
-      '33',
-      'Mitarbeiter',
-      '01.02.2025',
-      'Feuerwehrmann',
-      'Tischler',
-      'Sachkunde §34a',
-      'Ja',
-      'Ja',
-      'B, C',
-      'Nicole Küttner',
-      'bilder/ronny,w.jpg'
-    )">
-      <img src="bilder/ronny,w.jpg" alt="Ronny Winkler">
+  <div class="row">
+    <div class="card" onclick="showDetails('Chef Name','45','Chef','01.01.2020','Geschäftsführer','BWL','Sachkunde §34a','Ja','Ja','B, C','-','bilder/chef.jpg')">
+      <img src="bilder/chef.jpg" alt="Chef">
       <div class="card-content">
-        <h2>Ronny Winkler</h2>
-        <p>Geb. 30.05.1992</p>
-        <p>Mitarbeiter</p>
-        <span class="role-badge">Mitarbeiter</span>
+        <h2>Chef Name</h2>
+        <p>Geb. 12.05.1980</p>
+        <p>Geschäftsführer</p>
+        <span class="role-badge chef">Chef</span>
       </div>
     </div>
 
+    <div class="card" onclick="showDetails('Stellvertreter Name','40','Stellvertreter','01.06.2021','Objektleiter','Sachkunde','Sachkunde §34a','Ja','Ja','B','Chef Name','bilder/stellvertreter.jpg')">
+      <img src="bilder/stellvertreter.jpg" alt="Stellvertreter">
+      <div class="card-content">
+        <h2>Stellvertreter Name</h2>
+        <p>Geb. 18.02.1985</p>
+        <p>Stellvertreter</p>
+        <span class="role-badge stv">Stellvertreter</span>
+      </div>
+    </div>
   </div>
+
+  <div class="row-center">
+    <div class="card" style="max-width:600px; width:100%;" onclick="showDetails('IT Dokumentation','34','IT','01.07.2023','IT-Verwaltung','Fachinformatiker','Unterweisung §34a','Ja','Nein','B','Chef Name','bilder/it.jpg')">
+      <img src="bilder/it.jpg" alt="IT">
+      <div class="card-content">
+        <h2>IT Dokumentation</h2>
+        <p>Geb. 14.11.1990</p>
+        <p>IT / Dokumente</p>
+        <span class="role-badge it">IT & Doku</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="employee-grid" id="mitarbeiterContainer">
+  </div>
+
 </div>
 
 <div class="modal" id="detailModal">
   <div class="modal-content">
     <span class="close" onclick="closeModal()">&times;</span>
-
     <img id="detailImage" src="" alt="Bild">
-
     <div class="details">
       <h2 id="detailName"></h2>
       <p><strong>Funktion:</strong> <span id="detailRole"></span></p>
@@ -281,10 +293,8 @@
 <div class="modal" id="formularModal">
   <div class="modal-content">
     <span class="close" onclick="schliesseFormular()">&times;</span>
-
     <div class="details">
       <h2>Neuen Mitarbeiter anlegen</h2>
-
       <input type="text" id="formName" placeholder="Name">
       <input type="text" id="formGeburt" placeholder="Geburtsdatum">
       <input type="text" id="formAlter" placeholder="Alter">
@@ -298,16 +308,58 @@
       <input type="text" id="formFuehrerschein" placeholder="Führerschein">
       <input type="text" id="formChef" placeholder="Vorgesetzter">
       <input type="file" id="formBild" accept="image/*">
-
-      <div class="button-group">
-        <button class="admin-btn" onclick="speichereMitarbeiter()">Speichern</button>
-        <button class="admin-btn cancel-btn" onclick="schliesseFormular()">Abbrechen</button>
-      </div>
+      <br><br>
+      <button class="admin-btn" onclick="speichereMitarbeiter()">Speichern</button>
+      <button class="admin-btn delete-btn" onclick="schliesseFormular()">Abbrechen</button>
     </div>
   </div>
 </div>
 
 <script>
+  let mitarbeiterListe = [
+    {
+      name: 'Ronny Winkler',
+      geburt: '30.05.1992',
+      alter: '33',
+      funktion: 'Mitarbeiter',
+      seit: '01.02.2025',
+      beruf: 'Feuerwehrmann',
+      ausbildung: 'Tischler',
+      sicherheit: 'Sachkunde §34a',
+      ersthelfer: 'Ja',
+      brandschutz: 'Ja',
+      fuehrerschein: 'B, C',
+      chef: 'Nicole Küttner',
+      bild: 'bilder/ronny,w.jpg'
+    }
+  ];
+
+  function renderMitarbeiter() {
+    const container = document.getElementById('mitarbeiterContainer');
+    container.innerHTML = '';
+
+    mitarbeiterListe.sort((a, b) => a.name.localeCompare(b.name, 'de'));
+
+    mitarbeiterListe.forEach((m, index) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.setAttribute('onclick', `showDetails('${m.name}','${m.alter}','${m.funktion}','${m.seit}','${m.beruf}','${m.ausbildung}','${m.sicherheit}','${m.ersthelfer}','${m.brandschutz}','${m.fuehrerschein}','${m.chef}','${m.bild}')`);
+
+      card.innerHTML = `
+        <button class="remove-card-btn" onclick="event.stopPropagation(); loescheMitarbeiter(${index})">X</button>
+        <img src="${m.bild}" alt="${m.name}">
+        <div class="card-content">
+          <h2>${m.name}</h2>
+          <p>Geb. ${m.geburt}</p>
+          <p>${m.funktion}</p>
+          <span class="role-badge mitarbeiter">${m.funktion}</span>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+  }
+
   function showDetails(name, age, role, since, job, training, security, firstAid, fire, license, boss, image) {
     document.getElementById('detailName').innerText = name;
     document.getElementById('detailAge').innerText = age;
@@ -330,12 +382,10 @@
 
   function oeffneFormular() {
     const passwort = prompt('Admin Passwort eingeben');
-
     if (passwort !== adminPasswort) {
       alert('Falsches Passwort');
       return;
     }
-
     document.getElementById('formularModal').style.display = 'flex';
   }
 
@@ -344,78 +394,64 @@
   }
 
   function speichereMitarbeiter() {
-    const name = document.getElementById('formName').value;
-    const geburt = document.getElementById('formGeburt').value;
-    const alter = document.getElementById('formAlter').value;
-    const funktion = document.getElementById('formFunktion').value;
-    const seit = document.getElementById('formSeit').value;
-    const beruf = document.getElementById('formBeruf').value;
-    const ausbildung = document.getElementById('formAusbildung').value;
-    const sicherheit = document.getElementById('formSicherheit').value;
-    const ersthelfer = document.getElementById('formErsthelfer').value;
-    const brandschutz = document.getElementById('formBrandschutz').value;
-    const fuehrerschein = document.getElementById('formFuehrerschein').value;
-    const chef = document.getElementById('formChef').value;
-
     const bildDatei = document.getElementById('formBild').files[0];
 
-    if (!name || !bildDatei) {
-      alert('Bitte mindestens Name und Bild eingeben');
+    const neuerMitarbeiter = {
+      name: document.getElementById('formName').value,
+      geburt: document.getElementById('formGeburt').value,
+      alter: document.getElementById('formAlter').value,
+      funktion: document.getElementById('formFunktion').value,
+      seit: document.getElementById('formSeit').value,
+      beruf: document.getElementById('formBeruf').value,
+      ausbildung: document.getElementById('formAusbildung').value,
+      sicherheit: document.getElementById('formSicherheit').value,
+      ersthelfer: document.getElementById('formErsthelfer').value,
+      brandschutz: document.getElementById('formBrandschutz').value,
+      fuehrerschein: document.getElementById('formFuehrerschein').value,
+      chef: document.getElementById('formChef').value,
+      bild: ''
+    };
+
+    if (!neuerMitarbeiter.name || !bildDatei) {
+      alert('Bitte Name und Bild auswählen');
       return;
     }
 
     const reader = new FileReader();
-
     reader.onload = function(e) {
-      const bild = e.target.result;
-
-      const neueKarte = document.createElement('div');
-      neueKarte.className = 'card';
-
-      neueKarte.innerHTML = `
-        <img src="${bild}" alt="${name}">
-        <div class="card-content">
-          <h2>${name}</h2>
-          <p>Geb. ${geburt}</p>
-          <p>${funktion}</p>
-          <span class="role-badge">${funktion}</span>
-        </div>
-      `;
-
-      neueKarte.setAttribute('onclick', `showDetails('${name}','${alter}','${funktion}','${seit}','${beruf}','${ausbildung}','${sicherheit}','${ersthelfer}','${brandschutz}','${fuehrerschein}','${chef}','${bild}')`);
-
-      neueKarte.oncontextmenu = function(event) {
-        event.preventDefault();
-
-        const passwort = prompt('Admin Passwort zum Löschen eingeben');
-
-        if (passwort === adminPasswort) {
-          neueKarte.remove();
-        } else {
-          alert('Falsches Passwort');
-        }
-      };
-
-      document.getElementById('mitarbeiterRow').appendChild(neueKarte);
+      neuerMitarbeiter.bild = e.target.result;
+      mitarbeiterListe.push(neuerMitarbeiter);
+      renderMitarbeiter();
       schliesseFormular();
     };
-
     reader.readAsDataURL(bildDatei);
   }
 
-  window.onclick = function(event) {
-    const detailModal = document.getElementById('detailModal');
-    const formularModal = document.getElementById('formularModal');
+  function loescheMitarbeiter(index) {
+    const passwort = prompt('Admin Passwort zum Löschen eingeben');
 
-    if (event.target === detailModal) {
-      detailModal.style.display = 'none';
+    if (passwort !== adminPasswort) {
+      alert('Falsches Passwort');
+      return;
     }
 
-    if (event.target === formularModal) {
-      formularModal.style.display = 'none';
+    mitarbeiterListe.splice(index, 1);
+    renderMitarbeiter();
+  }
+
+  window.onclick = function(event) {
+    if (event.target === document.getElementById('detailModal')) {
+      closeModal();
+    }
+
+    if (event.target === document.getElementById('formularModal')) {
+      schliesseFormular();
     }
   }
+
+  renderMitarbeiter();
 </script>
 
 </body>
 </html>
+```
