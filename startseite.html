@@ -5,202 +5,93 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NKSP Sicherheitsdienst</title>
 
+  <link rel="icon" type="image/png" href="bilder/app-icon.png">
+
   <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial,sans-serif;
+    body {
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+      min-height: 100vh;
     }
 
-    body{
-      display:flex;
-      height:100vh;
-      background:#111;
-      color:white;
-      overflow:hidden;
+    .logo {
+      width: 100%;
+      max-width: 900px;
+      margin-top: 40px;
+      margin-bottom: 50px;
+      border-radius: 20px;
     }
 
-    .sidebar{
-      width:260px;
-      min-width:260px;
-      background:#1c1c1f;
-      padding:25px 15px;
-      display:flex;
-      flex-direction:column;
-      border-right:2px solid #2a2a2a;
-      overflow-y:auto;
+    .top-bar {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
     }
 
-    .logo{
-      text-align:center;
-      margin-bottom:35px;
+    .admin-btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 16px 28px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
     }
 
-    .logo img{
-      width:90px;
-      height:90px;
-      object-fit:contain;
-      margin-bottom:10px;
-      border-radius:12px;
-    }
-
-    .logo h1{
-      font-size:22px;
-      line-height:1.4;
-    }
-
-    .menu{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      margin-bottom:30px;
-    }
-
-    .menu button{
-      background:#2563eb;
-      color:white;
-      border:none;
-      padding:14px;
-      border-radius:14px;
-      cursor:pointer;
-      font-size:16px;
-      font-weight:bold;
-      transition:0.2s;
-      text-align:left;
-      width:100%;
-    }
-
-    .menu button:hover{
-      background:#1d4ed8;
-      transform:translateX(5px);
-    }
-
-    .info-box{
-      margin-top:auto;
-      background:#18181b;
-      border:1px solid #2f2f2f;
-      border-radius:18px;
-      padding:18px;
-      font-size:13px;
-      line-height:1.6;
-      color:#ccc;
-    }
-
-    .info-box h3{
-      color:white;
-      margin-bottom:12px;
-      font-size:16px;
-    }
-
-    .info-box p{
-      margin-bottom:8px;
-    }
-
-    .content{
-      flex:1;
-      padding:15px;
-      background:#111;
-    }
-
-    iframe{
-      width:100%;
-      height:100%;
-      border:none;
-      border-radius:20px;
-      background:#fff;
-    }
-
-    @media(max-width:900px){
-      body{
-        flex-direction:column;
-        overflow:auto;
-      }
-
-      .sidebar{
-        width:100%;
-        min-width:100%;
-        border-right:none;
-        border-bottom:2px solid #2a2a2a;
-      }
-
-      .menu{
-        display:grid;
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .content{
-        height:70vh;
-        padding:10px;
-      }
-    }
-
-    @media(max-width:600px){
-      .menu{
-        grid-template-columns:1fr;
-      }
-
-      .logo h1{
-        font-size:18px;
-      }
-
-      .menu button{
-        font-size:14px;
-        padding:12px;
-      }
-
-      .info-box{
-        font-size:12px;
-      }
+    .footer-text {
+      max-width: 900px;
+      margin: 80px auto 0 auto;
+      color: #888;
+      font-size: 15px;
+      line-height: 1.9;
+      background: #1c1c1f;
+      border-radius: 20px;
+      padding: 30px;
     }
   </style>
 </head>
 <body>
 
-  <div class="sidebar">
-    <div class="logo">
-      <img src="bilder/logo.png" alt="Logo">
-      <h1>NKSP<br>Sicherheitsdienst</h1>
-    </div>
+<img src="bilder/logo.png" alt="NKSP Logo" class="logo">
 
-    <div class="menu">
-      <button onclick="seiteLaden('startseite.html')">🏠 Startseite</button>
-      <button onclick="seiteLaden('mitarbeiter.html')">👥 Mitarbeiter</button>
-      <button onclick="seiteLaden('dienste.html')">📅 Dienste</button>
-      <button onclick="seiteLaden('dokumente.html')">📁 Dokumente</button>
-      <button onclick="seiteLaden('dienstberichte.html')">📝 Dienstberichte</button>
-      <button onclick="seiteLaden('organigramm.html')">📊 Organigramm</button>
-    </div>
+<div class="top-bar">
+  <a class="admin-btn" href="mitarbeiter.html">Mitarbeiter</a>
+  <a class="admin-btn" href="dokumente.html">Dokumente</a>
+  <a class="admin-btn" href="dienstberichte.html">Dienstberichte</a>
+  <a class="admin-btn" href="dienste.html">Dienste</a>
+</div>
 
-    <div class="info-box">
-      <h3>Verantwortliche</h3>
-
-      <p><strong>Nicole Küttner</strong><br>Tel. 01721858651</p>
-
-      <p><strong>Marcel Maczeyzik</strong><br>Tel. 015223256910</p>
-
-      <p><strong>Ronny Winkler</strong><br>Tel. 017630770237<br>E-Mail: winklerronny10@gmail.com</p>
-
-      <br>
-
-      <p>Diese Seite wurde erstellt von Ronny Winkler.</p>
-      <p>Pflege und Aktualisierung durch Nicole Küttner, Marcel Maczeyzik und Ronny Winkler.</p>
-      <p>Alle dargestellten Mitarbeiterdaten dienen ausschließlich internen Zwecken.</p>
-      <p>Unbefugte Weitergabe, Speicherung oder Veröffentlichung der Daten ist untersagt.</p>
-      <p>Datenschutzbeauftragter ist Herr Marcel Maczeyzik.</p>
-      <p>© 2026 NKSP Sicherheitsdienst</p>
-    </div>
-  </div>
-
-  <div class="content">
-    <iframe id="mainFrame" src="startseite.html"></iframe>
-  </div>
-
-  <script>
-    function seiteLaden(seite){
-      document.getElementById("mainFrame").src = seite;
-    }
-  </script>
+<div class="footer-text">
+  <p>Die Verantwortlichen sind zu erreichen unter</p>
+  
+  <p>Nicole, Küttner Tel. 01721858651</p>
+  <p>E-Mail: </p>
+  <p></p>
+  <p>Marcel, Maczeyzik Tel. 015223256910</p>
+  <p>E-Mail: </p>
+  <p></p>
+  <p>Ronny, Winkler Tel. 017630770237</p>
+  <p>E-Mail: winklerronny10@gmail.com</p>
+  <p></p>
+  <p></p>
+  <p></p>
+  <p>Diese Seite wurde erstellt von Ronny Winkler.</p>
+  <p>Pflege und Aktualisierung durch Nicole Küttner, Marcel Maczeyzik und Ronny Winkler.</p>
+  <p>Alle dargestellten Mitarbeiterdaten dienen ausschließlich internen Zwecken.</p>
+  <p>Unbefugte Weitergabe, Speicherung oder Veröffentlichung der Daten ist untersagt.</p>
+  <p>Der Zugriff auf diese Seite ist nur autorisierten Personen gestattet.</p>
+  <p>Personenbezogene Daten sind vertraulich zu behandeln und gemäß DSGVO nur intern zu verwenden.</p>
+  <p>Datenschutzbeauftragter ist Herr Marcel Maczeyzik.</p>
+  <p>© 2026 NKSP Sicherheitsdienst</p>
+</div>
 
 </body>
 </html>
