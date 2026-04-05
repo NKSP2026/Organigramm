@@ -471,6 +471,38 @@ let mitarbeiterListe = [
   }
 ];
 
+  function berechneAlter(geburtsdatum){
+  if(!geburtsdatum || geburtsdatum.includes("?")) return "?";
+
+  let teile;
+
+  if(geburtsdatum.includes(".")){
+    teile = geburtsdatum.split(".");
+    const tag = parseInt(teile[0]);
+    const monat = parseInt(teile[1]) - 1;
+    const jahr = parseInt(teile[2]);
+
+    if(isNaN(tag) || isNaN(monat) || isNaN(jahr)) return "?";
+
+    const geburt = new Date(jahr, monat, tag);
+    const heute = new Date();
+
+    let alter = heute.getFullYear() - geburt.getFullYear();
+
+    const hatGeburtstagSchonGehabt =
+      heute.getMonth() > geburt.getMonth() ||
+      (heute.getMonth() === geburt.getMonth() && heute.getDate() >= geburt.getDate());
+
+    if(!hatGeburtstagSchonGehabt){
+      alter--;
+    }
+
+    return alter;
+  }
+
+  return "?";
+}
+  
 function renderMitarbeiter(){
   const container = document.getElementById("mitarbeiterContainer");
   container.innerHTML = "";
@@ -482,7 +514,7 @@ function renderMitarbeiter(){
         <img src="${m.bild}">
         <div>
           <h2>${m.name}</h2>
-          <p>${m.alter} Jahre</p>
+          <p>${berechneAlter(m.geburtsdatum)} Jahre</p>
           <p>${m.funktion}</p>
         </div>
       </div>
@@ -494,7 +526,7 @@ function showDetails(index){
   const m = mitarbeiterListe[index];
   document.getElementById("detailBild").src = m.bild;
   document.getElementById("detailName").innerText = m.name;
-  document.getElementById("detailAlter").innerText = m.alter;
+  document.getElementById("detailAlter").innerText = berechneAlter(m.geburtsdatum);
   document.getElementById("detailWannNK").innerText = m.wannNK;
   document.getElementById("detailGeburtsdatum").innerText = m.geburtsdatum;
   document.getElementById("detailFunktion").innerText = m.funktion;
@@ -540,7 +572,6 @@ function speichereMitarbeiter(){
     mitarbeiterListe.push({
       name: document.getElementById("formName").value,
       geburtsdatum: document.getElementById("formGeburtsdatum").value,
-      alter: document.getElementById("formAlter").value,
       wannNK: document.getElementById("formWannNK").value,
       funktion: document.getElementById("formFunktion").value,
       beruf: document.getElementById("formBeruf").value,
